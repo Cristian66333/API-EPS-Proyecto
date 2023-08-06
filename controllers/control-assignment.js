@@ -4,7 +4,7 @@ const Office = require('./../models/Office')
 module.exports = {
     index : async (req,res) =>{
         try{
-            const data = await Assignment.find({}).populate('documentDoctorId')
+            const data = await Assignment.find({}).populate('documentDoctorId').populate('idOffice')
 
             return res.status(200).json({"state":true,"data":data})
         }catch(err){
@@ -26,11 +26,10 @@ module.exports = {
     save : async(req,res)=>{
         const {id_doctor} = req.params
         const {id_office} = req.params
-        console.log(id_doctor)
-        console.log(id_office)
         try {
             const assignment = new Assignment(req.body)
             assignment.documentDoctorId = id_doctor
+            assignment.idOffice = id_office
 
             const office = await Office.findById(id_office)
 

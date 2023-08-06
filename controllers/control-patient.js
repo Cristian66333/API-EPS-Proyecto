@@ -1,14 +1,9 @@
-const Office = require('./../models/Office')
-const Doctor = require('./../models/Doctor')
+const Patient = require('./../models/Patient')
 module.exports = {
     index : async (req,res) =>{
 
         try{
-            const data = await Office.find({}).populate('assignments').populate({path:'assignments',populate:{
-                path:'documentDoctorId'
-            }}).populate({path:'assignments',populate:{
-                path:'idOffice'
-            }})
+            const data = await Patient.find({}).populate('appointments')
 
             return res.status(200).json({"state":true,"data":data})
         }catch(err){
@@ -19,7 +14,7 @@ module.exports = {
     findById : async (req,res) => {
         const {id} = req.params
         try {
-            const data = await Office.findById(id)
+            const data = await Patient.findById(id)
             return res.status(200).json({"state":true,"data":data})
         } catch (error) {
             return res.status(503).json({"state":false, "error":error})
@@ -27,16 +22,24 @@ module.exports = {
     },
     save : async (req,res) =>{
         try {
-            const office = new Office(req.body)
+            const patient = new Patient(req.body)
 
-            await office.save()
-
-            const data = await office.save()
+            const data = await patient.save()
 
             return res.status(200).json({"state":true, "data":data})
         } catch (error) {
             return res.status(500).json({"state":false, "data":error})
         }
     },
+    erase : async (req,res) =>{
+        const {id} = req.params
+        try {
+            const data = await Patient.findByIdAndDelete(id)
+
+            return res.status(200).json({"state":true, "data":data})
+        } catch (error) {
+            return res.status(500).json({"state":false, "data":error})
+        }
+    }
 
 }

@@ -19,6 +19,11 @@ const AssignmentSchema = new Schema({
     fin: {
         type: Date,
         require: true
+    },
+    idOffice:{
+        type:Schema.Types.ObjectId,
+        ref:'office',
+        require:true
     }
 })
 
