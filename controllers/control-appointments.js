@@ -9,8 +9,10 @@ module.exports = {
                 path:'idOffice'
             }}).populate({path:'assigment',populate:{
                 path:'documentDoctorId'
-            }}).populate({path:'assigment.documentDoctorId',populate:{
-                path:'speciality'
+            }}).populate({path:'assigment',populate:{
+                path:'documentDoctorId', populate:{
+                    path:'speciality'
+                }
                 
             }}).exec()
 
