@@ -11,6 +11,7 @@ module.exports = {
                 path:'documentDoctorId'
             }}).populate({path:'assigment.documentDoctorId',populate:{
                 path:'speciality'
+                
             }}).exec()
 
             return res.status(200).json({"state":true,"data":data})
