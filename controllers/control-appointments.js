@@ -44,7 +44,7 @@ module.exports = {
     erase : async (req,res) =>{
         const {id} = req.params
         try {
-            const data = Appointment.findByIdAndDelete(id)
+            const data = await Appointment.findByIdAndDelete(id)
 
             return res.status(200).json({"state":true, "data":data})
         } catch (error) {
